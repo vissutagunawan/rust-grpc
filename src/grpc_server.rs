@@ -22,7 +22,7 @@ impl PaymentService for MyPaymentService {
         &self,
         request: Request<PaymentRequest>,
     ) -> Result<Response<PaymentResponse>, Status> {
-        println!("Recieved a request: {:?}", request);
+        println!("Received a request: {:?}", request);
         Ok(Response::new(PaymentResponse { success: true }))
     }
 }
@@ -38,7 +38,7 @@ impl TransactionService for MyTransactionService {
         &self,
         request: Request<TransactionRequest>,
     ) -> Result<Response<Self::GetTransactionHistoryStream>, Status> {
-        println!("Recieved transaction history request: {:?}", request);
+        println!("Received transaction history request: {:?}", request);
 
         let (tx, rx): (Sender<Result<TransactionResponse, Status>>, Receiver<Result<TransactionResponse, Status>>) = mpsc::channel(4);
 
@@ -64,7 +64,6 @@ impl TransactionService for MyTransactionService {
 #[derive(Default)]
 pub struct MyChatService {}
 
-#[tonic::async_trait]
 #[tonic::async_trait]
 impl ChatService for MyChatService {
     type ChatStream = ReceiverStream<Result<ChatMessage, Status>>;
